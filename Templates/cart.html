@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Shopping Cart</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:#F1F5F9;
+}
+
+/* NAVBAR */
+
+.navbar{
+    background:linear-gradient(90deg,#0F172A,#2563EB);
+    padding:18px 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    color:white;
+    font-size:28px;
+    font-weight:800;
+}
+
+.nav-links{
+    display:flex;
+    gap:12px;
+}
+
+.nav-links a{
+    color:white;
+    text-decoration:none;
+    padding:10px 15px;
+    border-radius:10px;
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    background:rgba(255,255,255,.15);
+}
+
+/* HEADER */
+
+.header{
+    background:linear-gradient(135deg,#0F172A,#2563EB);
+    color:white;
+    text-align:center;
+    padding:50px 20px;
+}
+
+.header h1{
+    font-size:45px;
+}
+
+.header p{
+    margin-top:10px;
+    font-size:18px;
+}
+
+/* CONTAINER */
+
+.container{
+    width:95%;
+    max-width:1400px;
+    margin:40px auto;
+}
+
+/* LAYOUT */
+
+.cart-layout{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:30px;
+    align-items:start;
+}
+
+/* CART ITEMS */
+
+.cart-items{
+    display:flex;
+    flex-direction:column;
+    gap:25px;
+}
+
+/* CARD */
+
+.cart-card{
+    background:white;
+    border-radius:20px;
+    padding:25px;
+    display:flex;
+    gap:25px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.cart-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 15px 35px rgba(37,99,235,.15);
+}
+
+.cart-card img{
+    width:160px;
+    height:220px;
+    object-fit:contain;
+    border-radius:12px;
+    background:#fff;
+}
+
+/* BOOK INFO */
+
+.book-info{
+    flex:1;
+}
+
+.book-title{
+    font-size:30px;
+    font-weight:700;
+    color:#0F172A;
+    margin-bottom:10px;
+}
+
+.author{
+    color:#64748B;
+    margin-bottom:10px;
+}
+
+.price{
+    color:#2563EB;
+    font-size:32px;
+    font-weight:bold;
+}
+
+.delivery{
+    margin-top:10px;
+    color:#10B981;
+    font-weight:bold;
+}
+
+/* QUANTITY */
+
+.quantity-box{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-top:20px;
+}
+
+.quantity-box input{
+    width:90px;
+    padding:10px;
+    border:2px solid #DBEAFE;
+    border-radius:10px;
+    text-align:center;
+}
+
+/* REMOVE */
+
+.remove-btn{
+    display:inline-block;
+    margin-top:20px;
+    background:#EF4444;
+    color:white;
+    text-decoration:none;
+    padding:12px 20px;
+    border-radius:10px;
+    font-weight:bold;
+}
+
+.remove-btn:hover{
+    background:#DC2626;
+}
+
+/* SUMMARY */
+
+.summary-box{
+    background:white;
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    position:sticky;
+    top:20px;
+}
+
+.summary-box h2{
+    text-align:center;
+    color:#2563EB;
+    margin-bottom:20px;
+}
+
+.summary-row{
+    display:flex;
+    justify-content:space-between;
+    margin:15px 0;
+    font-size:18px;
+}
+
+.total{
+    text-align:center;
+    font-size:40px;
+    color:#2563EB;
+    font-weight:bold;
+    margin:20px 0;
+}
+
+.order-btn{
+    display:block;
+    width:100%;
+    text-align:center;
+    background:#2563EB;
+    color:white;
+    text-decoration:none;
+    padding:15px;
+    border-radius:12px;
+    font-weight:bold;
+}
+
+.order-btn:hover{
+    background:#1D4ED8;
+}
+
+.shop-btn{
+    display:block;
+    width:100%;
+    text-align:center;
+    margin-top:15px;
+    background:#10B981;
+    color:white;
+    text-decoration:none;
+    padding:15px;
+    border-radius:12px;
+    font-weight:bold;
+}
+
+.shop-btn:hover{
+    background:#059669;
+}
+
+/* EMPTY */
+
+.empty-box{
+    background:white;
+    padding:60px;
+    text-align:center;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.empty-icon{
+    font-size:70px;
+}
+
+.browse-btn{
+    display:inline-block;
+    margin-top:20px;
+    background:#2563EB;
+    color:white;
+    text-decoration:none;
+    padding:15px 30px;
+    border-radius:12px;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+    .cart-layout{
+        grid-template-columns:1fr;
+    }
+
+    .summary-box{
+        position:static;
+    }
+
+    .cart-card{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .cart-card img{
+        margin:auto;
+    }
+
+    .quantity-box{
+        justify-content:center;
+    }
+
+    .navbar{
+        flex-direction:column;
+        gap:15px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+
+    <div class="logo">
+        📚 Rajalakshmy Book Store
+    </div>
+
+    <div class="nav-links">
+        <a href="{% url 'home' %}">🏠 Home</a>
+        <a href="{% url 'products' %}">📚 Books</a>
+        <a href="{% url 'wishlist' %}">❤️ Wishlist</a>
+        <a href="{% url 'orders' %}">📦 Orders</a>
+        <a href="{% url 'dashboard' %}">👤 Dashboard</a>
+    </div>
+
+</div>
+
+<div class="header">
+    <h1>🛒 Shopping Cart</h1>
+    <p>Review your books before checkout</p>
+</div>
+
+<div class="container">
+
+{% if cart_items %}
+
+<div class="cart-layout">
+
+<div class="cart-items">
+
+{% for item in cart_items %}
+
+<div class="cart-card">
+
+    <img src="{{ item.product.image.url }}" alt="{{ item.product.title }}">
+
+    <div class="book-info">
+
+        <div class="book-title">
+            {{ item.product.title }}
+        </div>
+
+        <div class="author">
+            ✍ {{ item.product.author }}
+        </div>
+
+        <div class="price">
+            ₹{{ item.product.price }}
+        </div>
+
+        <div class="delivery">
+            🚚 Free Delivery Available
+        </div>
+
+        <form action="{% url 'update_quantity' item.id %}" method="POST">
+            {% csrf_token %}
+
+            <div class="quantity-box">
+                <label>📦 Quantity</label>
+
+                <input
+                    type="number"
+                    name="quantity"
+                    value="{{ item.quantity }}"
+                    min="1"
+                    max="100"
+                    onchange="this.form.submit()">
+            </div>
+
+        </form>
+
+        <a href="{% url 'remove_cart' item.id %}"
+           class="remove-btn">
+           ❌ Remove
+        </a>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+<div class="summary-box">
+
+    <h2>🧾 Order Summary</h2>
+
+    <div class="summary-row">
+        <span>Total Items</span>
+        <strong>{{ cart_items|length }}</strong>
+    </div>
+
+    <div class="summary-row">
+        <span>Delivery</span>
+        <strong style="color:green;">FREE</strong>
+    </div>
+
+    <hr>
+
+    <div class="total">
+        ₹{{ total }}
+    </div>
+
+    <a href="{% url 'payment' %}"
+       class="order-btn">
+       💳 Proceed To Payment
+    </a>
+
+    <a href="{% url 'products' %}"
+       class="shop-btn">
+       📚 Continue Shopping
+    </a>
+
+</div>
+
+</div>
+
+{% else %}
+
+<div class="empty-box">
+
+    <div class="empty-icon">🛒</div>
+
+    <h2>Your Cart is Empty</h2>
+
+    <p style="margin-top:10px;">
+        Add books and start your shopping journey.
+    </p>
+
+    <a href="{% url 'products' %}"
+       class="browse-btn">
+       📚 Browse Books
+    </a>
+
+</div>
+
+{% endif %}
+
+</div>
+
+</body>
+</html>

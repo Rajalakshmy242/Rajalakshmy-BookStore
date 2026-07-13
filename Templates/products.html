@@ -1,0 +1,404 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Rajalakshmy Book Store</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:#F8FAFC;
+}
+
+/* NAVBAR */
+
+.navbar{
+    background:linear-gradient(90deg,#0F172A,#1D4ED8);
+    padding:18px 50px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 8px 25px rgba(0,0,0,.15);
+}
+
+.logo{
+    color:white;
+    font-size:30px;
+    font-weight:800;
+}
+
+.nav-links{
+    display:flex;
+    gap:10px;
+}
+
+.nav-links a{
+    color:white;
+    text-decoration:none;
+    padding:12px 18px;
+    border-radius:12px;
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    background:rgba(255,255,255,.15);
+}
+
+/* HERO */
+
+.hero{
+    background:linear-gradient(135deg,#0F172A,#2563EB);
+    color:white;
+    text-align:center;
+    padding:70px 20px;
+}
+
+.hero h1{
+    font-size:55px;
+}
+
+.hero p{
+    margin-top:10px;
+    font-size:20px;
+}
+
+/* SEARCH */
+
+.search-section{
+    text-align:center;
+    margin:30px;
+}
+
+.search-section input{
+    width:60%;
+    padding:15px;
+    border:none;
+    border-radius:30px;
+    box-shadow:0 5px 15px rgba(0,0,0,.1);
+    font-size:16px;
+}
+
+.search-section button{
+    padding:15px 25px;
+    border:none;
+    border-radius:30px;
+    background:#2563EB;
+    color:white;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+/* CATEGORY */
+
+.category-banner{
+    text-align:center;
+    margin:20px 0;
+}
+
+.category-banner h2{
+    margin-bottom:15px;
+}
+
+.categories span{
+    display:inline-block;
+    background:#2563EB;
+    color:white;
+    padding:12px 20px;
+    border-radius:25px;
+    margin:5px;
+}
+
+/* BOOKS */
+
+.books-container{
+    width:95%;
+    margin:auto;
+    padding:20px;
+}
+
+.books-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fill,minmax(320px,320px));
+    gap:30px;
+    justify-content:center;
+}
+
+.book-card{
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    transition:.4s;
+}
+
+.book-card:hover{
+    transform:translateY(-8px);
+}
+
+.book-card img{
+    width:100%;
+    height:380px;
+    object-fit:contain;
+    background:white;
+    padding:15px;
+}
+
+.book-info{
+    padding:20px;
+}
+
+.book-title{
+    font-size:22px;
+    font-weight:bold;
+    min-height:60px;
+}
+
+.author{
+    color:#64748B;
+    margin-top:10px;
+}
+
+.price{
+    color:#2563EB;
+    font-size:28px;
+    font-weight:bold;
+    margin-top:15px;
+}
+
+/* BUTTONS */
+
+.action-buttons{
+    display:flex;
+    gap:10px;
+    margin-top:20px;
+}
+
+.wishlist-btn{
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    background:white;
+    border:1px solid #ddd;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-decoration:none;
+    color:#E11D48;
+    font-size:22px;
+}
+
+.wishlist-btn:hover{
+    background:#E11D48;
+    color:white;
+}
+
+.view-btn{
+    flex:1;
+    background:#10B981;
+    color:white;
+    text-decoration:none;
+    text-align:center;
+    padding:14px;
+    border-radius:12px;
+    font-weight:bold;
+}
+
+.view-btn:hover{
+    background:#059669;
+}
+
+.cart-btn{
+    flex:1;
+    background:#2563EB;
+    color:white;
+    text-decoration:none;
+    text-align:center;
+    padding:14px;
+    border-radius:12px;
+    font-weight:bold;
+}
+
+.cart-btn:hover{
+    background:#1D4ED8;
+}
+
+/* FOOTER */
+
+.footer{
+    background:#0F172A;
+    color:white;
+    text-align:center;
+    padding:30px;
+    margin-top:50px;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    .navbar{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .nav-links{
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+    .search-section input{
+        width:90%;
+        margin-bottom:10px;
+    }
+
+    .books-grid{
+        grid-template-columns:1fr;
+    }
+
+    .hero h1{
+        font-size:38px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+
+    <div class="logo">
+        📚 Rajalakshmy Book Store
+    </div>
+
+    <div class="nav-links">
+        <a href="{% url 'home' %}">🏠 Home</a>
+        <a href="{% url 'products' %}">📚 Books</a>
+        <a href="{% url 'wishlist' %}">❤️ Wishlist</a>
+        <a href="{% url 'cart' %}">🛒 Cart</a>
+        <a href="{% url 'orders' %}">📦 Orders</a>
+        <a href="{% url 'dashboard' %}">👤 Dashboard</a>
+        <a href="{% url 'logout' %}">🚪 Logout</a>
+    </div>
+
+</div>
+
+<div class="hero">
+    <h1>Welcome to Rajalakshmy Book Store</h1>
+    <p>Discover Your Favourite Books</p>
+</div>
+
+<div class="search-section">
+
+    <form method="GET" action="{% url 'search_books' %}">
+
+        <input
+        type="text"
+        name="q"
+        placeholder="🔍 Search Books Here...">
+
+        <button type="submit">
+            Search
+        </button>
+
+    </form>
+
+</div>
+
+<div class="category-banner">
+
+    <h2>🔥 Trending Categories</h2>
+
+    <div class="categories">
+        <span>💻 Programming</span>
+        <span>📈 Business</span>
+        <span>🧠 Self Help</span>
+        <span>📖 Fiction</span>
+        <span>👶 Children</span>
+    </div>
+
+</div>
+
+<div class="books-container">
+
+    <div class="books-grid">
+
+        {% for book in books %}
+
+        <div class="book-card">
+
+            <img src="{{ book.image.url }}" alt="{{ book.title }}">
+
+            <div class="book-info">
+
+                <div class="book-title">
+                    {{ book.title }}
+                </div>
+
+                <div class="author">
+                    ✍ {{ book.author }}
+                </div>
+
+                <div class="price">
+                    ₹{{ book.price }}
+                </div>
+
+                <div class="action-buttons">
+
+                    <a href="{% url 'add_wishlist' book.id %}"
+                       class="wishlist-btn">
+                       ❤️
+                    </a>
+
+                    <a href="{% url 'book_detail' book.id %}"
+                       class="view-btn">
+                       📖 Details
+                    </a>
+
+                    <a href="{% url 'add_to_cart' book.id %}"
+                       class="cart-btn">
+                       🛒 Add To Cart
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <h2>No Books Available</h2>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+<div class="footer">
+
+    <h3>📚 Rajalakshmy Book Store</h3>
+    <p>Read More • Learn More • Grow More</p>
+
+</div>
+
+</body>
+</html>

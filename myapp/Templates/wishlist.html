@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Wishlist</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:#F8FAFC;
+}
+
+/* HEADER */
+
+.header{
+    background:linear-gradient(90deg,#0F172A,#2563EB);
+    color:white;
+    text-align:center;
+    padding:30px;
+    box-shadow:0 5px 20px rgba(0,0,0,.15);
+}
+
+.header h1{
+    font-size:42px;
+    font-weight:700;
+}
+
+/* CONTAINER */
+
+.container{
+    width:95%;
+    max-width:1300px;
+    margin:40px auto;
+}
+
+/* EMPTY WISHLIST */
+
+.empty-box{
+    width:650px;
+    max-width:95%;
+    margin:60px auto;
+    background:white;
+    padding:60px;
+    text-align:center;
+    border-radius:25px;
+    box-shadow:0 10px 30px rgba(37,99,235,.12);
+}
+
+.empty-icon{
+    font-size:70px;
+    margin-bottom:20px;
+}
+
+.empty-box h2{
+    color:#0F172A;
+    margin-bottom:15px;
+    font-size:32px;
+}
+
+.empty-box p{
+    color:#64748B;
+    margin-bottom:25px;
+    font-size:18px;
+}
+
+.browse-btn{
+    background:#2563EB;
+    color:white;
+    text-decoration:none;
+    padding:14px 30px;
+    border-radius:12px;
+    font-weight:bold;
+    display:inline-block;
+    transition:.3s;
+}
+
+.browse-btn:hover{
+    background:#1D4ED8;
+}
+
+/* WISHLIST GRID */
+
+.wishlist-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(420px,1fr));
+    gap:25px;
+}
+
+/* CARD */
+
+.card{
+    background:white;
+    border-radius:20px;
+    padding:20px;
+    display:flex;
+    align-items:center;
+    gap:20px;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 15px 30px rgba(37,99,235,.15);
+}
+
+.card img{
+    width:140px;
+    height:200px;
+    object-fit:contain;
+    background:white;
+    border-radius:12px;
+    padding:8px;
+}
+
+/* CONTENT */
+
+.card-body{
+    flex:1;
+}
+
+.card-body h3{
+    font-size:24px;
+    color:#0F172A;
+    margin-bottom:10px;
+    line-height:1.4;
+}
+
+.author{
+    color:#64748B;
+    font-size:16px;
+    margin-bottom:10px;
+}
+
+.price{
+    color:#2563EB;
+    font-size:30px;
+    font-weight:bold;
+    margin-bottom:18px;
+}
+
+/* BUTTONS */
+
+.btn-group{
+    display:flex;
+    gap:12px;
+}
+
+.cart-btn,
+.remove-btn{
+    flex:1;
+    text-align:center;
+    text-decoration:none;
+    padding:12px;
+    border-radius:10px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.cart-btn{
+    background:#2563EB;
+    color:white;
+}
+
+.cart-btn:hover{
+    background:#1D4ED8;
+}
+
+.remove-btn{
+    background:#EF4444;
+    color:white;
+}
+
+.remove-btn:hover{
+    background:#DC2626;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    .wishlist-grid{
+        grid-template-columns:1fr;
+    }
+
+    .card{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .card img{
+        width:180px;
+        height:250px;
+    }
+
+    .btn-group{
+        flex-direction:column;
+        width:100%;
+    }
+
+    .empty-box{
+        padding:35px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>❤️ My Wishlist</h1>
+</div>
+
+<div class="container">
+
+{% if wishlist_items %}
+
+<div class="wishlist-grid">
+
+{% for item in wishlist_items %}
+
+<div class="card">
+
+    <img src="{{ item.book.image.url }}"
+         alt="{{ item.book.title }}">
+
+    <div class="card-body">
+
+        <h3>{{ item.book.title }}</h3>
+
+        <div class="author">
+            ✍ {{ item.book.author }}
+        </div>
+
+        <div class="price">
+            ₹{{ item.book.price }}
+        </div>
+
+        <div class="btn-group">
+
+            <a href="{% url 'add_to_cart' item.book.id %}"
+               class="cart-btn">
+               🛒 Add To Cart
+            </a>
+
+            <a href="{% url 'remove_wishlist' item.id %}"
+               class="remove-btn">
+               ❌ Remove
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="empty-box">
+
+    <div class="empty-icon">❤️</div>
+
+    <h2>Your Wishlist is Empty</h2>
+
+    <p>
+        Save your favourite books and access them anytime.
+    </p>
+
+    <a href="{% url 'products' %}"
+       class="browse-btn">
+
+       📚 Browse Books
+
+    </a>
+
+</div>
+
+{% endif %}
+
+</div>
+
+</body>
+</html>

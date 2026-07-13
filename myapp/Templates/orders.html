@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Orders</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:#F8FAFC;
+}
+
+/* HEADER */
+
+.header{
+    background:linear-gradient(90deg,#0F172A,#2563EB);
+    color:white;
+    text-align:center;
+    padding:35px;
+    box-shadow:0 5px 20px rgba(0,0,0,.15);
+}
+
+.header h1{
+    font-size:42px;
+    font-weight:700;
+}
+
+/* CONTAINER */
+
+.container{
+    width:95%;
+    max-width:1300px;
+    margin:40px auto;
+}
+
+/* ORDER CARD */
+
+.order-card{
+    background:white;
+    border-radius:25px;
+    padding:25px;
+    margin-bottom:25px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.order-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 15px 35px rgba(37,99,235,.15);
+}
+
+.left{
+    display:flex;
+    gap:25px;
+    align-items:center;
+}
+
+.left img{
+    width:140px;
+    height:200px;
+    object-fit:contain;
+    background:#fff;
+    border-radius:15px;
+    padding:10px;
+}
+
+/* DETAILS */
+
+.book-title{
+    font-size:28px;
+    font-weight:bold;
+    color:#0F172A;
+    margin-bottom:10px;
+}
+
+.author{
+    color:#64748B;
+    margin-bottom:10px;
+    font-size:17px;
+}
+
+.price{
+    color:#2563EB;
+    font-size:30px;
+    font-weight:bold;
+    margin-bottom:12px;
+}
+
+.qty{
+    font-size:16px;
+    margin-bottom:8px;
+    color:#334155;
+}
+
+.date{
+    color:#64748B;
+}
+
+/* RIGHT SIDE */
+
+.right{
+    text-align:center;
+}
+
+/* STATUS */
+
+.status{
+    display:inline-block;
+    padding:12px 20px;
+    border-radius:30px;
+    font-weight:bold;
+    margin-bottom:15px;
+    font-size:15px;
+}
+
+.processing{
+    background:#FEF3C7;
+    color:#92400E;
+}
+
+.delivered{
+    background:#DCFCE7;
+    color:#166534;
+}
+
+.cancelled{
+    background:#FEE2E2;
+    color:#991B1B;
+}
+
+/* BUTTON */
+
+.cancel-btn{
+    background:#EF4444;
+    color:white;
+    text-decoration:none;
+    padding:12px 25px;
+    border-radius:12px;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.cancel-btn:hover{
+    background:#DC2626;
+}
+
+/* EMPTY ORDERS */
+
+.empty-box{
+    width:700px;
+    margin:80px auto;
+    background:white;
+    padding:60px;
+    text-align:center;
+    border-radius:25px;
+    box-shadow:0 10px 30px rgba(37,99,235,.12);
+}
+
+.empty-icon{
+    font-size:80px;
+    margin-bottom:20px;
+}
+
+.empty-box h2{
+    color:#0F172A;
+    font-size:34px;
+    margin-bottom:15px;
+}
+
+.empty-box p{
+    color:#64748B;
+    font-size:18px;
+    margin-bottom:25px;
+}
+
+.shop-btn{
+    display:inline-block;
+    background:#2563EB;
+    color:white;
+    text-decoration:none;
+    padding:15px 35px;
+    border-radius:12px;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.shop-btn:hover{
+    background:#1D4ED8;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    .order-card{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .left{
+        flex-direction:column;
+    }
+
+    .empty-box{
+        width:95%;
+        padding:35px;
+    }
+
+    .header h1{
+        font-size:32px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+    <h1>📦 My Orders</h1>
+</div>
+
+<div class="container">
+
+{% if orders %}
+
+{% for order in orders %}
+
+<div class="order-card">
+
+    <div class="left">
+
+        <img src="{{ order.product.image.url }}"
+             alt="{{ order.product.title }}">
+
+        <div>
+
+            <div class="book-title">
+                {{ order.product.title }}
+            </div>
+
+            <div class="author">
+                ✍ {{ order.product.author }}
+            </div>
+
+            <div class="price">
+                ₹{{ order.product.price }}
+            </div>
+
+            <div class="qty">
+                📚 Quantity : {{ order.quantity }}
+            </div>
+
+          <div class="date">
+    📅 Ordered On :
+    {{ order.ordered_at|date:"d M Y" }}
+    |
+    🕒 {{ order.ordered_at|time:"h:i A" }}
+</div>
+
+        </div>
+
+    </div>
+
+    <div class="right">
+
+        {% if order.status == 'Processing' %}
+
+        <div class="status processing">
+            ⏳ Processing
+        </div>
+
+        <br><br>
+
+        <a href="{% url 'cancel_order' order.id %}"
+           class="cancel-btn">
+           ❌ Cancel Order
+        </a>
+
+        {% elif order.status == 'Cancelled' %}
+
+        <div class="status cancelled">
+            ❌ Cancelled
+        </div>
+
+        {% else %}
+
+        <div class="status delivered">
+            ✅ Delivered
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+{% else %}
+
+<div class="empty-box">
+
+    <div class="empty-icon">
+        📦
+    </div>
+
+    <h2>No Orders Yet</h2>
+
+    <p>
+        Start shopping and place your first order.
+    </p>
+
+    <a href="{% url 'products' %}"
+       class="shop-btn">
+
+       📚 Browse Books
+
+    </a>
+
+</div>
+
+{% endif %}
+
+</div>
+
+</body>
+</html>

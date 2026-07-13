@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dashboard</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:#F8FAFC;
+}
+
+/* HEADER */
+
+.header{
+    background:linear-gradient(90deg,#0F172A,#2563EB);
+    color:white;
+    text-align:center;
+    padding:35px;
+    box-shadow:0 8px 25px rgba(0,0,0,.15);
+}
+
+.header h1{
+    font-size:42px;
+    font-weight:700;
+}
+
+/* CONTAINER */
+
+.container{
+    width:95%;
+    max-width:1300px;
+    margin:40px auto;
+}
+
+/* WELCOME */
+
+.welcome-box{
+    background:white;
+    padding:25px;
+    border-radius:20px;
+    margin-bottom:30px;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+.welcome-box h2{
+    color:#0F172A;
+    margin-bottom:10px;
+    font-size:32px;
+}
+
+.welcome-box p{
+    color:#64748B;
+    font-size:17px;
+}
+
+/* STATS */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+.card{
+    background:white;
+    padding:35px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 15px 35px rgba(37,99,235,.15);
+}
+
+.card h2{
+    color:#2563EB;
+    font-size:45px;
+    margin-bottom:10px;
+}
+
+.card p{
+    color:#64748B;
+    font-size:18px;
+    font-weight:600;
+}
+
+/* QUICK LINKS */
+
+.quick-links{
+    margin-top:35px;
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    background:#2563EB;
+    color:white;
+    text-decoration:none;
+    padding:14px 25px;
+    border-radius:12px;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.btn:hover{
+    background:#1D4ED8;
+    transform:translateY(-3px);
+}
+
+/* RECENT ORDERS */
+
+.orders{
+    background:white;
+    margin-top:40px;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.orders h2{
+    color:#0F172A;
+    margin-bottom:20px;
+    font-size:28px;
+}
+
+.order-item{
+    padding:18px;
+    border-bottom:1px solid #E2E8F0;
+}
+
+.order-item:last-child{
+    border-bottom:none;
+}
+
+.book-name{
+    font-weight:bold;
+    font-size:20px;
+    color:#0F172A;
+}
+
+.order-date{
+    color:#64748B;
+    margin-top:8px;
+}
+
+.no-orders{
+    text-align:center;
+    padding:30px;
+    color:#64748B;
+    font-size:18px;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    .header h1{
+        font-size:30px;
+    }
+
+    .welcome-box h2{
+        font-size:26px;
+    }
+
+    .quick-links{
+        justify-content:center;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+    <h1>📚 Rajalakshmy Book Store Dashboard</h1>
+</div>
+
+<div class="container">
+
+    <div class="welcome-box">
+        <h2>👋 Welcome {{ user.first_name|default:user.username }}</h2>
+
+        <p>
+            Manage your books, wishlist, cart and orders from one place.
+        </p>
+    </div>
+
+    <div class="cards">
+
+        <div class="card">
+            <h2>{{ total_books }}</h2>
+            <p>📚 Total Books</p>
+        </div>
+
+        <div class="card">
+            <h2>{{ cart_count }}</h2>
+            <p>🛒 Cart Items</p>
+        </div>
+
+        <div class="card">
+            <h2>{{ order_count }}</h2>
+            <p>📦 Orders</p>
+        </div>
+
+        <div class="card">
+            <h2>{{ wishlist_count }}</h2>
+            <p>❤️ Wishlist</p>
+        </div>
+
+    </div>
+
+    <div class="quick-links">
+
+        <a href="{% url 'products' %}" class="btn">
+            📚 Browse Books
+        </a>
+
+        <a href="{% url 'wishlist' %}" class="btn">
+            ❤️ Wishlist
+        </a>
+
+        <a href="{% url 'cart' %}" class="btn">
+            🛒 Cart
+        </a>
+
+        <a href="{% url 'orders' %}" class="btn">
+            📦 Orders
+        </a>
+
+    </div>
+
+    <div class="orders">
+
+        <h2>📦 Recent Orders</h2>
+
+        {% for order in recent_orders %}
+
+        <div class="order-item">
+
+            <div class="book-name">
+                📚 {{ order.product.title }}
+            </div>
+
+            <div class="order-date">
+                Ordered On : {{ order.ordered_at }}
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="no-orders">
+            No Orders Yet
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+</body>
+</html>

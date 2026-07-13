@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Login - Rajalakshmy Book Store</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:linear-gradient(
+    135deg,
+    #DBEAFE,
+    #FFFFFF
+    );
+
+    height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+}
+
+.login-box{
+
+    width:700px;
+
+    padding:60px;
+
+    background:white;
+
+    border-radius:30px;
+
+    text-align:center;
+
+    box-shadow:0 15px 35px rgba(37,99,235,.15);
+}
+
+.login-box h1{
+
+    font-size:48px;
+
+    color:#1E3A8A;
+
+    margin-bottom:15px;
+}
+
+.subtitle{
+
+    color:#64748B;
+
+    margin-bottom:30px;
+
+    font-size:16px;
+}
+
+input{
+
+    width:100%;
+
+    padding:18px;
+
+    margin:15px 0;
+
+    border:2px solid #DBEAFE;
+
+    border-radius:14px;
+
+    font-size:17px;
+}
+
+input:focus{
+
+    border-color:#2563EB;
+
+    box-shadow:0 0 10px rgba(37,99,235,.15);
+}
+
+button{
+
+    width:100%;
+
+    padding:15px;
+
+    margin-top:15px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#2563EB;
+
+    color:white;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+button:hover{
+
+    background:#1D4ED8;
+}
+
+.forgot{
+
+    margin-top:15px;
+}
+
+.forgot a{
+
+    color:#2563EB;
+
+    text-decoration:none;
+
+    font-weight:bold;
+}
+
+.register-text{
+
+    margin-top:20px;
+
+    color:#64748B;
+}
+
+.register-text a{
+
+    color:#2563EB;
+
+    font-weight:bold;
+
+    text-decoration:none;
+}
+
+.message{
+
+    color:red;
+
+    margin-top:15px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="login-box">
+
+    <h1>📚 Rajalakshmy Book Store</h1>
+
+    <p class="subtitle">
+        Login to Continue Shopping
+    </p>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <input
+            type="email"
+            name="username"
+            placeholder="Enter Email"
+            required
+        >
+
+        <input
+            type="password"
+            name="password"
+            placeholder="Enter Password"
+            required
+        >
+
+        <button type="submit">
+            Login
+        </button>
+
+    </form>
+    <div style="margin-top:15px;">
+
+    <a href="{% url 'password_reset' %}"
+       style="
+       color:#7b001c;
+       text-decoration:none;
+       font-weight:bold;">
+       Forgot Password?
+    </a>
+
+</div>
+
+    {% if message %}
+    <div class="message">
+        {{ message }}
+    </div>
+    {% endif %}
+
+    <div class="register-text">
+
+        Don't have an account?
+
+        <a href="{% url 'register' %}">
+            Register
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

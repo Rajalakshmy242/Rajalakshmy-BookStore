@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register - Rajalakshmy Book Store</title>
+
+<style>
+
+    *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:linear-gradient(
+    135deg,
+    #DBEAFE,
+    #FFFFFF
+    );
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+.container{
+
+    width:550px;
+
+    background:white;
+
+    padding:45px;
+
+    border-radius:25px;
+
+    box-shadow:0 15px 35px rgba(37,99,235,.15);
+}
+
+h2{
+
+    text-align:center;
+
+    color:#1E3A8A;
+
+    font-size:38px;
+
+    margin-bottom:25px;
+}
+
+label{
+
+    font-weight:600;
+
+    color:#334155;
+
+    display:block;
+
+    margin-top:12px;
+
+    margin-bottom:5px;
+}
+
+input{
+
+    width:100%;
+
+    padding:14px;
+
+    border:2px solid #DBEAFE;
+
+    border-radius:12px;
+
+    font-size:16px;
+
+    outline:none;
+
+    transition:.3s;
+}
+
+input:focus{
+
+    border-color:#2563EB;
+
+    box-shadow:0 0 10px rgba(37,99,235,.15);
+}
+
+button{
+
+    width:100%;
+
+    padding:15px;
+
+    background:#2563EB;
+
+    color:white;
+
+    border:none;
+
+    border-radius:12px;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    margin-top:25px;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+button:hover{
+
+    background:#1D4ED8;
+
+    transform:translateY(-2px);
+}
+
+.login-link{
+
+    text-align:center;
+
+    margin-top:20px;
+
+    color:#64748B;
+}
+
+.login-link a{
+
+    color:#2563EB;
+
+    text-decoration:none;
+
+    font-weight:bold;
+}
+
+.login-link a:hover{
+
+    text-decoration:underline;
+}
+
+.error{
+
+    color:#DC2626;
+
+    text-align:center;
+
+    margin-top:15px;
+
+    font-weight:600;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Create Account 📚</h2>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <label>First Name</label>
+        {{ form.first_name }}
+
+        <label>Last Name</label>
+        {{ form.last_name }}
+
+        <label>User Name</label>
+        {{ form.username }}
+
+        <label>Email</label>
+        {{ form.email }}
+
+        <label>Phone Number</label>
+        {{ form.phone }}
+
+        <label>Create Password</label>
+        {{ form.password }}
+
+        <label>Confirm Password</label>
+        {{ form.confirm_password }}
+
+        <p class="error">{{ error }}</p>
+
+        <button type="submit">Register</button>
+
+    </form>
+
+    <div class="login-link">
+        Already have an account?
+        <a href="/login/">Login</a>
+    </div>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const phoneInput = document.querySelector("input[name='phone']");
+
+    phoneInput.addEventListener("input", function () {
+
+        this.value = this.value.replace(/[^0-9]/g, '');
+
+        if (this.value.length > 10) {
+            this.value = this.value.slice(0, 10);
+        }
+    });
+
+});
+</script>
+
+</body>
+</html>
